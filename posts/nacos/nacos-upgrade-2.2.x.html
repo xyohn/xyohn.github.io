@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="~">
+    <meta property="og:type" content="website">
+    <meta name="description" content="~">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Upgrade Nacos to 2.2.x - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>xYohn</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E6%B5%81%E7%A8%8B"><span class="toc-text">升级流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">遇到的问题</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Upgrade Nacos to 2.2.x
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2023-08-09 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Nacos" title="Nacos">Nacos</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Nacos 确实是一款不错的产品，但奈何文档写的..不清晰</p>
+<p>关于 2.x 版本间的升级，看似好像无坑，实际上还是存在一些配置的变动引发的小坑，特此记录</p>
+<p>本文是从<code>2.0.3</code>版本升级至<code>2.2.4</code>(实际上为<code>2.2.3</code>)版本，理论上<code>2.x</code>版本间升级均可参考食用</p>
+<h2 id="升级流程"><a href="#升级流程" class="headerlink" title="升级流程"></a>升级流程</h2><ul>
+<li><p>如果使用 Nacos <code>2.0.x</code>版本，先确保是否已经关闭双写开关<br>有关双写开关相关信息，可参阅<a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/docs/v2/upgrading/2.0.0-upgrading.html">https://nacos.io/zh-cn/docs/v2/upgrading/2.0.0-upgrading.html</a></p>
+</li>
+<li><p>相比 Nacos <code>2.0.x</code>版本，<code>2.1.x</code>+数据库结构有以下变动，以下为 MySQL 下的语句，需要在升级前先执行以下语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter table config_info add column    `encrypted_data_key` text NOT NULL COMMENT &#x27;秘钥&#x27;;</span><br><span class="line">alter table config_info_beta add column  `encrypted_data_key` text NOT NULL COMMENT &#x27;秘钥&#x27;;</span><br><span class="line">alter table his_config_info add column  `encrypted_data_key` text NOT NULL COMMENT &#x27;秘钥&#x27;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Nacos <code>2.1.x</code>版本开始支持插件化，且鉴权作为插件化的形式引入，其配置文件值也相应做了更改，需要改动<code>applicaiton.properties</code>对应值</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认鉴权插件用于生成用户登陆临时accessToken所使用的密钥</span></span><br><span class="line"><span class="comment"># 以下配置为2.1.x之前配置 需替换为 nacos.core.auth.plugin.nacos.token.secret.key</span></span><br><span class="line"><span class="attr">nacos.core.auth.default.token.secret.key</span>=<span class="string">xxxx</span></span><br><span class="line"><span class="comment"># 以下配置为2.1.x之后配置</span></span><br><span class="line"><span class="attr">nacos.core.auth.plugin.nacos.token.secret.key</span>=<span class="string">xxxx</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># accessToken的过期时间</span></span><br><span class="line"><span class="comment"># 以下配置为2.1.x之前配置 需替换为 nacos.core.auth.plugin.nacos.token.expire.seconds</span></span><br><span class="line"><span class="attr">nacos.core.auth.default.token.expire.seconds</span>=<span class="string">50</span></span><br><span class="line"><span class="comment"># 以下配置为2.1.x之后配置</span></span><br><span class="line"><span class="attr">nacos.core.auth.plugin.nacos.token.expire.seconds</span>=<span class="string">50</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>secretKey</code>之前版本存在默认值，存在安全风险，后续版本已去除默认值。<br>出于安全考虑不建议在生产环境使用默认值，如需修改，可参考官方公告方式进行修改<a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/blog/announcement-token-secret-key.html">关于 Nacos 默认 token.secret.key 及 server.identity 风险说明及解决方案公告</a></p>
+</li>
+<li><p>User-Agent 白名单修改</p>
+<blockquote>
+<p>此选项非 Nacos<code>2.x</code>版本后的变更，但如需在升级过程中修改该配置，需要进行过渡处理</p>
+</blockquote>
+<p>如需开启服务身份识别功能，禁用原先通过 User-Agent 的判断，可参考官方文档<a target="_blank" rel="noopener" href="https://nacos.io/zh-cn/docs/v2/guide/user/auth.html">开启服务身份识别功能</a><br>在操作的过程中，建议先开启白名单判断(<code>nacos.core.auth.enable.userAgentAuthWhite</code>值修改为 true)，后保证认证头和值均发布到服务上后(<code>nacos.core.auth.server.identity.key</code>及<code>nacos.core.auth.server.identity.value</code>)再将<code>nacos.core.auth.enable.userAgentAuthWhite</code>值修改为 false</p>
+</li>
+<li><p>升级集群中某一节点服务</p>
+<blockquote>
+<p>对于 Docker&#x2F;K8s 环境部署 Nacos 服务的情况，相当于滚动更新容器；对于虚拟机&#x2F;物理机部署的情况，相当于停止旧 jar 包，使用新 jar 包启动</p>
+</blockquote>
+<p>此处升级需注意，不仅是 jar 包的替换，新版本的<code>startup.sh</code>(或<code>docker-startup.sh</code>)亦可能有变化，需使用新版本的 shell 文件</p>
+</li>
+<li><p>查看已经升级节点的日志文件，检查是否升级成功</p>
+<ul>
+<li>检查 nacos.log</li>
+<li>检查 core-auth.log</li>
+<li>检查 naming-*.log</li>
+</ul>
+</li>
+<li><p>重复上述两步骤，直到集群中所有节点均升级到新版本</p>
+</li>
+<li><p>验证功能是否正常</p>
+</li>
+</ul>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
+<li><p>升级后，客户端连接旧服务正常，连接新服务报 Invalid signature</p>
+<blockquote>
+<p>包括 Console 下以及 Nacos Client 均可能出现这个情况</p>
+</blockquote>
+<ul>
+<li>核心原因</li>
+</ul>
+<p>Nacos 2.0.x 版本使用的是 jjwt 插件实现的 jwt 签发和鉴权，2.1.x 版本开始基于插件化实现，2.2.1 版本使用自研的 jwt 插件实现签发和鉴权，两者在对<strong>secretKey</strong>进行 Base64 解码的处理方式上存在不一致，如果原先的 secretKey 没有进行 Base64 编码，可能会存在此问题</p>
+<blockquote>
+<p>（我之前部署的就不是进行 Base64 编码的，记得之前部署的时候没说要设置 Base64 编码的..)</p>
+</blockquote>
+<p>旧版本对于<code>secretKey</code>的处理方式为:在<code>com.alibaba.nacos.auth.common.AuthConfigs#getSecretKeyBytes</code>使用<code>io.jsonwebtoken.io.Decoder#decode</code>方法将 secretKey 转换成 byte 数组</p>
+<blockquote>
+<p>这个方法对不规范的数据做了处理，会截断后面的数据</p>
+</blockquote>
+<img src="/posts/nacos/nacos-upgrade-2.2.x/image-20230804145336259.png" class="" title="image-20230804145336259"> <br/>
+
+<p> 新版本对于<code>secretKey</code>的处理方式为: 在实例化<code>com.alibaba.nacos.plugin.auth.impl.jwt.NacosJwtParser</code>时，使用<code>java.util.Base64.Decoder#decode(java.lang.String)</code>进行 Base64 解码，如果解码失败，直接获取 secretKey 的 byte 数组</p>
+<img src="/posts/nacos/nacos-upgrade-2.2.x/image-20230804150621314.png" class="" title="image-20230804150621314">   <br/>
+
+
+<p>出现这个问题，很有可能是走到了 catch 逻辑中，导致 secretKey 的byte数组与之前的不一致，从而导致 JWT Token 签名校验失败，产生 Invalid signature 的错误</p>
+<ul>
+<li><p>解决办法<br>jjwt 对不规范的数据采用截断方式，于是我想着把代码抽取出来成为独立的类，可以调用<code>convert()</code>对 secretKey 进行转换，入参为老版本 Nacos 配置的 secretKey，出参为新版本 Nacos 配置的 secretKey</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xYohn</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2023/8/4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">KeyConvert</span> &#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">char</span>[] BASE64_ALPHABET = <span class="string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span>.toCharArray();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span>[] BASE64_IALPHABET = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">256</span>];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">IALPHABET_MAX_INDEX</span> <span class="operator">=</span> BASE64_IALPHABET.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span>[] IALPHABET = BASE64_IALPHABET;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        Arrays.fill(BASE64_IALPHABET, -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>, iS = BASE64_ALPHABET.length; i &lt; iS; i++) &#123;</span><br><span class="line">            BASE64_IALPHABET[BASE64_ALPHABET[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        BASE64_IALPHABET[<span class="string">&#x27;=&#x27;</span>] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">byte</span>[] decodeFast(<span class="type">char</span>[] sArr) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Check special case</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">sLen</span> <span class="operator">=</span> sArr != <span class="literal">null</span> ? sArr.length : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (sLen == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">sIx</span> <span class="operator">=</span> <span class="number">0</span>, eIx = sLen - <span class="number">1</span>;    <span class="comment">// Start and end index after trimming.</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Trim illegal chars from start</span></span><br><span class="line">        <span class="keyword">while</span> (sIx &lt; eIx &amp;&amp; IALPHABET[sArr[sIx]] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            sIx++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Trim illegal chars from end</span></span><br><span class="line">        <span class="keyword">while</span> (eIx &gt; <span class="number">0</span> &amp;&amp; IALPHABET[sArr[eIx]] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            eIx--;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// get the padding count (=) (0, 1 or 2)</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">pad</span> <span class="operator">=</span> sArr[eIx] == <span class="string">&#x27;=&#x27;</span> ? (sArr[eIx - <span class="number">1</span>] == <span class="string">&#x27;=&#x27;</span> ? <span class="number">2</span> : <span class="number">1</span>) : <span class="number">0</span>;  <span class="comment">// Count &#x27;=&#x27; at end.</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">cCnt</span> <span class="operator">=</span> eIx - sIx + <span class="number">1</span>;   <span class="comment">// Content count including possible separators</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">sepCnt</span> <span class="operator">=</span> sLen &gt; <span class="number">76</span> ? (sArr[<span class="number">76</span>] == <span class="string">&#x27;\r&#x27;</span> ? cCnt / <span class="number">78</span> : <span class="number">0</span>) &lt;&lt; <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> ((cCnt - sepCnt) * <span class="number">6</span> &gt;&gt; <span class="number">3</span>) - pad; <span class="comment">// The number of decoded bytes</span></span><br><span class="line">        <span class="type">byte</span>[] dArr = <span class="keyword">new</span> <span class="title class_">byte</span>[len];       <span class="comment">// Preallocate byte[] of exact length</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Decode all but the last 0 - 2 bytes.</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">cc</span> <span class="operator">=</span> <span class="number">0</span>, eLen = (len / <span class="number">3</span>) * <span class="number">3</span>; d &lt; eLen; ) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Assemble three bytes into an int from four &quot;valid&quot; characters.</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> ctoi(sArr[sIx++]) &lt;&lt; <span class="number">18</span> | ctoi(sArr[sIx++]) &lt;&lt; <span class="number">12</span> | ctoi(sArr[sIx++]) &lt;&lt; <span class="number">6</span> | ctoi(sArr[sIx++]);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Add the bytes</span></span><br><span class="line">            dArr[d++] = (<span class="type">byte</span>) (i &gt;&gt; <span class="number">16</span>);</span><br><span class="line">            dArr[d++] = (<span class="type">byte</span>) (i &gt;&gt; <span class="number">8</span>);</span><br><span class="line">            dArr[d++] = (<span class="type">byte</span>) i;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// If line separator, jump over it.</span></span><br><span class="line">            <span class="keyword">if</span> (sepCnt &gt; <span class="number">0</span> &amp;&amp; ++cc == <span class="number">19</span>) &#123;</span><br><span class="line">                sIx += <span class="number">2</span>;</span><br><span class="line">                cc = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (d &lt; len) &#123;</span><br><span class="line">            <span class="comment">// Decode last 1-3 bytes (incl &#x27;=&#x27;) into 1-3 bytes</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; sIx &lt;= eIx - pad; j++) &#123;</span><br><span class="line">                i |= ctoi(sArr[sIx++]) &lt;&lt; (<span class="number">18</span> - j * <span class="number">6</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">16</span>; d &lt; len; r -= <span class="number">8</span>) &#123;</span><br><span class="line">                dArr[d++] = (<span class="type">byte</span>) (i &gt;&gt; r);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dArr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">ctoi</span><span class="params">(<span class="type">char</span> c)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> c &gt; IALPHABET_MAX_INDEX ? -<span class="number">1</span> : IALPHABET[c];</span><br><span class="line">        <span class="keyword">if</span> (i &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> <span class="string">&quot;Illegal base64 character: &#x27;&quot;</span> + c + <span class="string">&quot;&#x27;&quot;</span>;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(msg);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">convert</span><span class="params">(String input)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> java.util.Base64.getEncoder().encodeToString(decodeFast(input.toCharArray()));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(convert(<span class="string">&quot;secretKey&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/js/pangu.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // listen to any DOM change and automatically perform spacing via MutationObserver()
+    pangu.autoSpacingPage();
+  });
+</script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+  data-repo="xyohn/xyohn-giscus"
+  data-repo-id="R_kgDOJz28ng"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOJz28ns4CXdLX"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+
+
+</html>
