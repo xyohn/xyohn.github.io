@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="~">
+    <meta property="og:type" content="website">
+    <meta name="description" content="~">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        xYohn
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>xYohn</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka"><span class="toc-text">Kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2023-05-08 18:26:06</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><ol>
+<li><p>系统架构</p>
+<p><img src="/Kafka.assets/640.jpeg" alt="图片"></p>
+<p>Kafka 由 Producer、Broker、Consumer 以及负责集群管理的 ZooKeeper 组成</p>
+</li>
+<li><p>基础概念</p>
+<ul>
+<li><p>Producer</p>
+<p>生产者，负责消息的创建并通过一定的路由策略发送消息到合适的 Broker</p>
+</li>
+<li><p>Broker</p>
+<p>服务实例，负责消息的持久化、中转等功能</p>
+</li>
+<li><p>Consumer </p>
+<p>消费者，负责从 Broker 中拉取（Pull）订阅的消息并进行消费，通常多个消费者构成一个分组，消息只能被同组中的一个消费者消费</p>
+</li>
+<li><p>ZooKeeper</p>
+<p>负责 broker、consumer 集群元数据的管理等；（注意：Producer 端直接连接 broker，不在 zk 上存任何数据，只是通过 ZK 监听 broker 和 topic 等信息）</p>
+</li>
+<li><p>topic</p>
+<p>消息主题。Kafka 按 topic 对消息进行分类，我们在收发消息时只需指定 topic。</p>
+</li>
+<li><p>partition</p>
+<p>分区，为了提升系统的吞吐</p>
+<blockquote>
+<p>一个 topic 下通常有多个 partition，partition 分布在不同的 Broker 上，用于存储 topic 的消息，这使 Kafka 可以在多台机器上处理、存储消息，给 Kafka 提供给了并行的消息处理能力和横向扩容能力。另外，为了提升系统的可靠性，partition 通常会分组，且每组有一个主 partition、多个副本 partition，且分布在不同的 broker 上，从而起到<strong>容灾</strong>的作用。</p>
+</blockquote>
+</li>
+<li><p>segment：分段</p>
+<blockquote>
+<p>一个 partition 对应一个日志（Log）。由于生产者生产的消息会不断<strong>追加到 log 文件末尾</strong>，为防止 log 文件过大导致数据检索效率低下，<strong>Kafka 采取了分段和索引机制，将每个 partition 分为多个 segment，同时也便于消息的维护和清理</strong>。每个 segment 包含一个.log 日志文件、两个索引(.index、timeindex)文件以及其他可能的文件。每个 Segment 的数据文件以该段中最小的 offset 为文件名，当查找 offset 的 Message 的时候，通过二分查找快找到 Message 所处于的 Segment 中。</p>
+</blockquote>
+</li>
+<li><p>offset</p>
+<p>消息在日志中的位置</p>
+<blockquote>
+<p>消息在被追加到分区日志文件的时候都会分配一个特定的偏移量。offset 是消息在分区中的唯一标识，是一个单调递增且不变的值。Kafka 通过它来保证消息在分区内的顺序性，不过 offset 并不跨越分区，也就是说，<strong>Kafka 保证的是分区有序而不是主题有序</strong>。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>数据存储</p>
+<ul>
+<li><p>存储日志的.log 文件</p>
+</li>
+<li><p>位移索引文件.index</p>
+<p><img src="/Kafka.assets/640-20230510001512684.jpeg" alt="图片"></p>
+<ul>
+<li><p>相对位移</p>
+<p>保存于索引文件名字上面的起始位移的差值</p>
+<blockquote>
+<p>离当前起始位移的差值</p>
+</blockquote>
+</li>
+<li><p>文件物理位置</p>
+<p>消息在 log 文件中保存的位置</p>
+<blockquote>
+<p>消息位移-&gt; 消息所在的物理位置-&gt;从log文件中找到对应的消息</p>
+</blockquote>
+<p><img src="/Kafka.assets/640-20230510002348688.jpeg" alt="图片"></p>
+</li>
+</ul>
+</li>
+<li><p>时间戳索引文件.timeindex</p>
+<p><img src="/Kafka.assets/640-20230510002514735.jpeg" alt="图片"></p>
+<blockquote>
+<p>0.10.0.0版本后支持，满足用户需要根据时间戳查询消息记录</p>
+</blockquote>
+<p><img src="/Kafka.assets/640-20230510002537266.jpeg" alt="图片"></p>
+</li>
+</ul>
+</li>
+<li><p>负载均衡</p>
+<ol>
+<li><p>生产者负载均衡</p>
+<p>指如何将消息发送到合适的分区，由分区器实现</p>
+<p>默认的分区器 DefaultPartitioner策略</p>
+<ul>
+<li><p>指定key情况下</p>
+<p>对 key 值进行 Hash 计算，从所有分区中根据  Hash 值计算得到分区号；拥有相同 Key 值的消息被写入同一个分区</p>
+<blockquote>
+<p>消息局部有序，顺序消息实现的关键</p>
+</blockquote>
+</li>
+<li><p>不指定key情况下</p>
+<p>以轮询的方式，在所有可用分区中分别写入消息</p>
+</li>
+</ul>
+<p>可自实现分区器</p>
+</li>
+<li><p>消费者负载均衡</p>
+<p>每个分区（Partition）只能由一个消费者组中的一个消费者消费</p>
+<p>当消费者组中有多个消费者时，Kafka 会自动进行负载均衡，将分区均匀地分配给每个消费者</p>
+<p>可以通过设置 partition.assignment.strategy配置分区分配策略</p>
+<ul>
+<li><p>range</p>
+<p>在保证均衡的前提下，将连续的分区分配给消费者</p>
+</li>
+<li><p>round-robin</p>
+<p>在保证均衡的前提下，轮询分配</p>
+</li>
+<li><p>StickyAssignor</p>
+<p>保证分区均衡的前提下尽量保持原有的分区分配结果，从而避免许多冗余的分区分配操作，减少分区再分配的执行时间</p>
+<blockquote>
+<p>0.11.0.0引入</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>高可靠性的保证</p>
+<ol>
+<li><p>消息传递过程及风险</p>
+<ul>
+<li><p>消息从生产者可靠地发送至 Broker</p>
+<ol>
+<li><p>风险</p>
+<ol>
+<li>网络不稳定性</li>
+<li>本地丢数据</li>
+</ol>
+</li>
+<li><p>解决核心</p>
+<ol>
+<li>Producer 发送消息后，能够收到来自 Broker 的消息保存成功 ack；</li>
+<li>Producer 发送消息后，能够捕获超时、失败 ack 等异常 ack 并做处理。</li>
+</ol>
+</li>
+<li><p>解决方案</p>
+<ol>
+<li><p>ack 策略</p>
+<blockquote>
+<p>Kafka 为我们提供了三种 ack 策略</p>
+</blockquote>
+<ol>
+<li>Request.required.acks &#x3D; 0：请求发送即认为成功，不关心有没有写成功，常用于日志进行分析场景；</li>
+<li>Request.required.acks &#x3D; 1：当 leader partition 写入成功以后，才算写入成功，有丢数据的可能；</li>
+<li>Request.required.acks&#x3D; -1：ISR 列表里面的所有副本都写完以后，这条消息才算写入成功，强可靠性保证；</li>
+</ol>
+</li>
+<li><p>消息发送策略</p>
+<blockquote>
+<p>Kafka 提供两类消息发送方式</p>
+</blockquote>
+<ol>
+<li><p>async&#x3D;0，同步（sync）发送，默认值</p>
+<p><img src="/Kafka.assets/640-20230508184415350.jpeg" alt="图片"></p>
+<blockquote>
+<p>是在异步发送的基础上加以条件限制实现的。同步消息发送在 newSyncProducerFromAsyncProducer 中开启两个<strong>异步协程</strong>处理消息成功与失败的“回调”，并使用 waitGroup 进行等待，从而将异步操作转变为同步操作</p>
+</blockquote>
+</li>
+<li><p>async&#x3D;1，异步（async）发送</p>
+<p><img src="/Kafka.assets/640-20230508183827315.jpeg" alt="图片"></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>最佳实践</p>
+<ol>
+<li><p>设置 Request.required.acks&#x3D; -1</p>
+</li>
+<li><p>设置集群中处于正常同步状态的副本 follower 数量 min.insync.replicas&gt;2</p>
+</li>
+<li><p>设置 unclean.leader.election.enable&#x3D;false 使得集群中 ISR 的 follower 才可变成新的 leader</p>
+<blockquote>
+<p> 避免特殊情况下消息截断的出现</p>
+</blockquote>
+</li>
+<li><p>使用同步发送代替异步发送，如果使用异步，需要通过channel捕捉消息失败的情况并做补偿处理，对于时延比较敏感的业务可以考虑用异步。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>发送到 Broker 的消息可靠持久化</p>
+<ol>
+<li><p>风险</p>
+<ul>
+<li>Pagecache 缓存落盘（刷盘机制）</li>
+<li>单点崩溃（容灾机制）</li>
+<li>多副本间数据同步一致性问题</li>
+</ul>
+</li>
+<li><p>解决核心</p>
+<ul>
+<li>Broker 返回 Producer 成功 ack 时，消息是否已经落盘；</li>
+<li>Broker 宕机是否会导致数据丢失，容灾机制是什么；</li>
+<li>Replica 副本机制带来的多副本间数据同步一致性问题如何解决；</li>
+</ul>
+</li>
+<li><p>解决方案</p>
+<ol>
+<li><p>异步刷盘机制带来的风险性</p>
+<p><img src="/Kafka.assets/640-20230509095441585.jpeg" alt="图片"></p>
+<p>Kafka<strong>没有提供</strong>同步刷盘的机制，Broker 接收到消息后只是将数据写入 PageCache 后便认为消息已写入成功， PageCache的刷盘机制由系统决定，因此单机场景存在消息丢失的风险，<strong>该问题无法从修改刷盘机制配置实现</strong></p>
+</li>
+<li><p>Replica 多副本机制</p>
+<p>Kafka 中，复制的基本单位是分区，同组分区的不同副本分布在不同的 Broker 上，保存相同的消息(可能有滞后)</p>
+<p>副本之间是“一主多从”的关系，其中 leader 副本负责处理读写请求，follower 副本负责从 leader 拉取消息进行同步</p>
+<p>消息在写入到主节点之后，并不会马上返回写入成功，而是等待足够多的节点(设置的ISR数量)都复制成功后再返回</p>
+<ul>
+<li><p>概念</p>
+<ul>
+<li>AR（Assigned Replicas） 所有副本</li>
+<li>ISR（In-Sync Replicas） 与 leader 副本保持一定同步的副本(ISR包括主节点)</li>
+<li>OSR（Out-of-Sync Replicas）与 leader 同步滞后过多的副本</li>
+</ul>
+<blockquote>
+<p>AR&#x3D;ISR+OSR</p>
+</blockquote>
+</li>
+<li><p>运作过程</p>
+<ul>
+<li><p>数据同步</p>
+<ul>
+<li><p>follower 默认每隔 500ms 向 leader fetch 一次数据</p>
+</li>
+<li><p>只要一个 Follower 副本落后 Leader 副本的时间不连续超过 10 秒，就认为该 Follower 副本与 leader 是同步的</p>
+<p>取决于 Broker 端参数 replica.lag.time.max.ms(默认为 10 秒)</p>
+</li>
+</ul>
+<blockquote>
+<p>最佳实践下，所有的 follower 副本都应该与 leader 副本保持一定程度的同步，即 AR&#x3D;ISR，OSR 集合为空</p>
+</blockquote>
+</li>
+<li><p>故障转移</p>
+<ul>
+<li><p>借助 ZK 从 follower 副本中选举新的 leader </p>
+</li>
+<li><p>默认情况下只有在 ISR 集合中的副本才有资格被选举为新的 leader</p>
+<blockquote>
+<p>为了保证使选举的新 leader 和旧 leader 数据尽可能一致</p>
+</blockquote>
+<blockquote>
+<p>可通过修改unclean.leader.election.enable配置来决定OSR集合是否有机会选举</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>多副本间数据同步一致性</p>
+<ul>
+<li><p>高水位更新机制</p>
+<ol>
+<li><p>概念</p>
+<p><img src="/Kafka.assets/640-20230509100632703.jpeg" alt="图片"></p>
+<ul>
+<li><p><strong>HW</strong>:</p>
+<p>High Watermark，高水位，表示已经提交(commit)的最大日志偏移量，Kafka 中某条日志“已提交”的意思是 ISR 中所有节点都包含了此条日志，并且消费者只能消费 HW 之前的数据；</p>
+<ul>
+<li><p>Leader HW</p>
+<p>&#x3D; min（所有副本 LEO）</p>
+<blockquote>
+<p> Leader 副本不仅要保存自己的 HW 和 LEO，还要保存 follower 副本的 HW 和 LEO</p>
+</blockquote>
+</li>
+<li><p>Follower HW</p>
+<p>&#x3D; min(follower 自身 LEO，leader HW)</p>
+</li>
+</ul>
+</li>
+<li><p><strong>LEO</strong></p>
+<p> Log End Offset，表示当前 log 文件中下一条待写入消息的 offset；</p>
+</li>
+</ul>
+<blockquote>
+<p>所有副本都有对应的 HW 和 LEO</p>
+<p>Kafka 使用 Leader 副本的高水位来定义所在分区的高水位，即分区的高水位就是其 Leader 副本的高水位</p>
+</blockquote>
+</li>
+<li><p>更新过程</p>
+<blockquote>
+<p>下面Leader HW简记为HWL，Follower HW简记为HWF，Leader LEO简记为LEOL ，Follower LEO简记为LEOF</p>
+</blockquote>
+<ul>
+<li><p>初始状态</p>
+<p><img src="/Kafka.assets/640-20230509101215005.jpeg" alt="图片"></p>
+<p>HWL&#x3D;0，LEOL&#x3D;0，HWF&#x3D;0，LEOF&#x3D;0</p>
+</li>
+<li><p>第一次fetch</p>
+<p><img src="/Kafka.assets/640-20230509101341945.jpeg" alt="图片"></p>
+<ul>
+<li>Leader 收到Producer发来的一条消息完成存储, 更新LEOL&#x3D;1;</li>
+<li>Follower从Leader fetch数据,  Leader收到请求，记录follower的LEOF &#x3D;0，并且尝试更新HWL &#x3D;min(全部副本LEO)&#x3D;0；</li>
+<li>Leader返回HWL&#x3D;0和LEOL&#x3D;1给Follower，Follower存储消息并更新LEOF &#x3D;1, HWF&#x3D;min(LEOF，HWL)&#x3D;0。</li>
+</ul>
+</li>
+<li><p>第二次 fetch</p>
+<p><img src="/Kafka.assets/640-20230509175850443.jpeg" alt="图片"></p>
+<ul>
+<li>Follower再次从Leader fetch数据,  Leader收到请求，记录follower的LEOF &#x3D;1，并且尝试更新HWL &#x3D;min(全部副本LEO)&#x3D;1；</li>
+<li>Leader返回HWL&#x3D;1和LEOL&#x3D;1给Follower，Follower收到请求，更新自己的 HWF&#x3D;min(LEOF，HWL)&#x3D;1。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>存在的问题</p>
+<blockquote>
+<p>如果 Leader 节点更新期间发生故障，则 Follower 的 HW 和 Leader 的 HW 可能会处于不一致状态</p>
+</blockquote>
+<ul>
+<li><p>数据丢失</p>
+<p><img src="/Kafka.assets/640-20230509185143163.jpeg" alt="图片"></p>
+</li>
+<li><p>数据错乱</p>
+<p><img src="/Kafka.assets/640-20230509185232826.jpeg" alt="图片"></p>
+</li>
+</ul>
+</li>
+<li><p>解决方案</p>
+<ol>
+<li><p>Leader Epoch</p>
+<blockquote>
+<p>Kafka 引入了 Leader Epoch 的概念。leader epoch 和 raft 中的任期号的概念很类似，每次重新选择 leader 的时候，用一个严格单调递增的 id 来标志，可以让所有 follower 意识到 leader 的变化。</p>
+</blockquote>
+<blockquote>
+<p>Follower 也不再以 HW 为准，每次奔溃重启后都需要去 leader 那边确认下当前 leader 的日志是从哪个 offset 开始的</p>
+</blockquote>
+<ul>
+<li><p>数据丢失</p>
+<p><img src="/Kafka.assets/640-20230509235125767.jpeg" alt="图片"></p>
+</li>
+<li><p>数据错乱</p>
+<p><img src="/Kafka.assets/640-20230509235203499.jpeg" alt="图片"></p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>消费者从 Broker 消费到消息且最好只消费一次</p>
+<blockquote>
+<p>风险：跨网络消息传输的可靠性</p>
+</blockquote>
+<p>通常是通过手动提交+幂等实现消息的可靠消费</p>
+<ol>
+<li><p>自动提交和手动提交</p>
+<p><img src="/Kafka.assets/640-20230508184907458.png" alt="图片"></p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>精确一次（exactly once）的实现</p>
+<p>幂等性（Idempotence）和事务（Transaction）</p>
+<p><img src="/Kafka.assets/640.png" alt="图片"></p>
+</li>
+</ol>
+<blockquote>
+<p>Kafka 的Exactly Once和我们通常理解的消息队列的服务水平中的 Exactly Once 是不一样的</p>
+<p>通常理解： 消息从生产者发送到 Broker，然后消费者再从 Broker 拉取消息，然后进行消费。这个过程中，确保每一条消息恰好传输一次，不重不丢</p>
+<p>Kafka 的 Exactly Once： 在流计算中，用 Kafka 作为数据源，并且将计算结果保存到 Kafka 这种场景下，数据从 Kafka 的某个主题中消费，在计算集群中计算，再把计算结果保存在 Kafka 的其他主题中。这样的过程中，保证每条消息都被恰好计算一次，确保计算结果正确。</p>
+<p><img src="/Kafka.assets/kafka-exactly-once.png" alt="kafka-exactly-once"> </p>
+</blockquote>
+</li>
+<li><p>高性能的设计</p>
+<ul>
+<li><p>异步发送</p>
+<p>同步发送本质上也是异步的，但是在处理结果时，同步发送通过 waitGroup 将异步操作转换为同步，以最大化提高消息发送的吞吐能力</p>
+</li>
+<li><p>批量发送</p>
+<p>多个消息打包成一个批次进行发送，无论是同步发送还是异步发送，都是先把消息在内存中缓存起来，选择合适的时间把消息组成一批一并发送</p>
+<p>减少网络传输的开销，提高网络传输的效率和吞吐量</p>
+<p>处理消息时也是以一条<code>批处理</code>消息为单位做处理</p>
+<ul>
+<li><p>batch.size</p>
+<p>控制批量发送消息的大小，默认值为 16KB</p>
+<blockquote>
+<p>如果批量发送的大小设置得过大，可能会导致消息发送的延迟增加，因此需要根据实际情况进行调整</p>
+</blockquote>
+</li>
+<li><p>linger.ms</p>
+<p>控制消息在批量发送前的等待时间，默认值为 0</p>
+<p>大于0时，会等待指定时间或达到batch.size大小后发送</p>
+</li>
+</ul>
+</li>
+<li><p>压缩技术</p>
+<p>传输前压缩信息，到达后解压信息，从而减少网络传输的开销</p>
+<blockquote>
+<p>压缩和解压缩的过程会消耗一定的 CPU 资源</p>
+</blockquote>
+<ul>
+<li><p>压缩算法</p>
+<ul>
+<li><p>GZIP</p>
+</li>
+<li><p>Snappy</p>
+</li>
+<li><p>LZ4</p>
+</li>
+<li><p>Zstandard（2.10版本后支持）</p>
+<blockquote>
+<p>Facebook 开源，能够提供超高压缩比</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>吞吐量：LZ4&gt;Snappy&gt;zstd 和 GZIP，压缩比：zstd&gt;LZ4&gt;GZIP&gt;Snappy</p>
+</blockquote>
+</li>
+<li><p>参数配置</p>
+<ul>
+<li><p>compression.type</p>
+<p>控制压缩算法的类型，默认值为 none，表示不进行压缩</p>
+</li>
+<li><p>compression.level</p>
+<p>控制压缩的级别，取值范围为 0-9，默认值为-1。当值为-1 时，表示使用默认的压缩级别</p>
+</li>
+</ul>
+</li>
+<li><p>压缩传输过程</p>
+<ul>
+<li><p>选择一批消息一起压缩，每一个批消息就是一个压缩分段</p>
+</li>
+<li><p>生产者生成一个批消息发给服务端</p>
+<blockquote>
+<p>服务端也不用对这批消息进行解压，可以整批直接存储，然后整批发送给消费者</p>
+<p>不消耗服务端CPU资源，且获得压缩多余空间和传输时间的优势</p>
+</blockquote>
+</li>
+<li><p>消费者接收批消息，并解压消息</p>
+<blockquote>
+<p>消息解压的动作交给了消费者</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Pagecache 机制&amp;顺序追加落盘</p>
+<ul>
+<li><p>Broker 接收到消息后只是将数据写入PageCache后便认为消息已写入成功，PageCache进行异步刷盘</p>
+<blockquote>
+<p>提高读写效率但是也增加了丢失数据的风险性</p>
+</blockquote>
+<p>读写消息文件的时候，也充分利用了 PageCache 的特性，对于刚刚写入PageCache的消息，在读取命中时命中率较高</p>
+</li>
+<li><p>数据顺序追加写到磁盘日志文件中</p>
+<p><img src="/Kafka.assets/640-20230510000331032.jpeg" alt="图片"></p>
+<blockquote>
+<p>利用顺序IO替代随机IO</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><a href="../3-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9B%B6%E6%8B%B7%E8%B4%9D.md">零拷贝</a></p>
+<ul>
+<li><p>Kafka使用mmap来处理其索引文件</p>
+<blockquote>
+<p>索引文件用于在提取日志文件中的消息时进行高效查找</p>
+</blockquote>
+</li>
+<li><p>在 Consumer 从 Broker 读数据过程中使用了 sendfile 技术</p>
+<blockquote>
+<p>通过 NIO 的 <code>transferTo/transferFrom</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>稀疏索引</p>
+<p>不会为每个记录都保存索引，而是写入一定的记录之后才会增加一个索引值</p>
+<blockquote>
+<p>时间间隔通过log.index.interval.bytes 参数进行控制，默认大小为 4 KB</p>
+</blockquote>
+<blockquote>
+<p>索引文件是按照消息的顺序性进行增加索引项的，因此 Kafka 可以利用二分查找算法来搜索目标索引项</p>
+</blockquote>
+</li>
+<li><p>broker &amp; 数据分区</p>
+<p>一个topic多partition-&gt;不同partition分布在不同broker</p>
+<p>提供了 并行的消息处理能力 和 横向扩容能力</p>
+</li>
+<li><p>多 reactor 多线程网络模型</p>
+<p>Broker 端处理消息时采用了多 reactor 多线程模型</p>
+<p><img src="/Kafka.assets/640-20230510002844026.jpeg" alt="图片"></p>
+<ul>
+<li><p>组件</p>
+<ul>
+<li><p>SocketServer</p>
+<p>实现 Reactor 模式，用于处理多个 Client（包括客户端和其他 broker 节点）的并发请求，并将处理结果返回给 Client</p>
+</li>
+<li><p>KafkaRequestHandlerPool</p>
+<p>Reactor 模式中的 Worker 线程池，里面定义了多个工作线程，用于处理实际的 I&#x2F;O 请求逻辑。</p>
+</li>
+</ul>
+</li>
+<li><p>步骤</p>
+<ol>
+<li>Acceptor 接收客户端发来的请求</li>
+<li>轮询分发给 Processor 线程处理</li>
+<li>Processor 将请求封装成 Request 对象，放到 RequestQueue 队列</li>
+<li>KafkaRequestHandlerPool 分配工作线程，处理 RequestQueue 中的请求</li>
+<li>KafkaRequestHandler 线程处理完请求后，将响应 Response 返回给 Processor 线程</li>
+<li>Processor 线程将响应返回给客户端</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_g11mmmQse6KrkUE8x4abQ">Kafka 高可靠高性能原理探究</a></li>
+<li>极客时间-消息队列高手课</li>
+</ul>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/js/pangu.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // listen to any DOM change and automatically perform spacing via MutationObserver()
+    pangu.autoSpacingPage();
+  });
+</script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+  data-repo="xyohn/xyohn-giscus"
+  data-repo-id="R_kgDOJz28ng"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOJz28ns4CXdLX"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+
+
+</html>
