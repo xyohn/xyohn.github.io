@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="~">
+    <meta property="og:type" content="website">
+    <meta name="description" content="~">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Nacos RCE 0day? - xYohn
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>xYohn</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E8%B7%AF%E5%BE%84"><span class="toc-text">利用路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E6%8E%A2%E7%A9%B6%E7%AB%9F"><span class="toc-text">一探究竟</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#By-the-way"><span class="toc-text">By the way</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Nacos RCE 0day?
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2024-07-15 00:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#Nacos" title="Nacos">Nacos</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天(2024年07月15日)傍晚开始出现了一个Nacos RCE的0day POC，随手刷了一下能看到很多”安全”媒体都在发这个快讯，且描述的十分夸张，最新版本Nacos亦受影响。每家”安全”媒体的描述都大差不差，看起来似乎是相互借鉴。出于好奇的心理，我打算一探究竟，看看其影响范围是否真有这么严重？</p>
+<h1 id="利用路径"><a href="#利用路径" class="headerlink" title="利用路径"></a>利用路径</h1><p>综合各媒体的描述，以及POC的README，可以得出漏洞利用的条件是</p>
+<ol>
+<li>Nacos 2.3.2或2.4.0版本</li>
+<li>未开启Nacos鉴权</li>
+</ol>
+<p>没了</p>
+<p>刚看到这些文章时，我还是觉得利用条件比较低的，但当我把POC的代码下载下来研磨时，发现事情其实没那么简单</p>
+<h1 id="一探究竟"><a href="#一探究竟" class="headerlink" title="一探究竟"></a>一探究竟</h1><p>POC的代码其实不长，我比较好奇利用点在哪儿，所以关注了一下POC攻击的端点，为以下两个端点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/nacos/v1/cs/ops/data/removal</span><br><span class="line">/nacos/v1/cs/ops/derby</span><br></pre></td></tr></table></figure>
+
+<p>毕竟Nacos也是开源的，我们看看这两个接口都有些神马逻辑</p>
+<ul>
+<li><p>&#x2F;nacos&#x2F;v1&#x2F;cs&#x2F;ops&#x2F;data&#x2F;removal</p>
+<style>.hfjjvxrtyiwq{width: 750px;}</style><img src="/2024/07/15/4d9d066a596b/image-20240715220513249.png" class="hfjjvxrtyiwq" alt="image-20240715220513249"></li>
+</ul>
+<p>​		我看了一下这个接口的改动记录，实际上从2020年开始，这个接口就存在了，且逻辑与现在没有太大差异。</p>
+<p>​		从实现逻辑及注释上来看，是希望能上传一个文件并导入到持久层上，并且这个接口开启了鉴权。</p>
+<p>​		在这块代码里，有一串判断条件引起了我的注意</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!DatasourceConfiguration.isEmbeddedStorage()) &#123;</span><br><span class="line">      response.setResult(RestResultUtils.failed(<span class="string">&quot;Limited to embedded storage mode&quot;</span>));</span><br><span class="line">      <span class="keyword">return</span> response;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>​	查看<code>DatasourceConfiguration.isEmbeddedStorage()</code>，实际上调用的逻辑是<code>EnvUtil.getStandaloneMode()</code>，判断当前环境是不是单例启动。</p>
+<p>​	换言之，这个接口只有在<strong>单例模式</strong>下才能调用，集群模式应该被这个判断条件拦截了</p>
+<ul>
+<li><p>&#x2F;nacos&#x2F;v1&#x2F;cs&#x2F;ops&#x2F;derby</p>
+<style>.coppxctsglua{width: 750px;}</style><img src="/2024/07/15/4d9d066a596b/image-20240715221513846.png" class="coppxctsglua" alt="image-20240715221513846"></li>
+</ul>
+<p>​		这个接口的首版同样是在2020年，近几年同样没什么变动。吸引我的也同样是这个判断条件，以及后面一句强转</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!DatasourceConfiguration.isEmbeddedStorage()) &#123;</span><br><span class="line">               <span class="keyword">return</span> RestResultUtils.failed(<span class="string">&quot;The current storage mode is not Derby&quot;</span>);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="type">LocalDataSourceServiceImpl</span> <span class="variable">dataSourceService</span> <span class="operator">=</span> (LocalDataSourceServiceImpl) DynamicDataSource</span><br><span class="line">                   .getInstance().getDataSource();</span><br></pre></td></tr></table></figure>
+
+<p>​		判断条件与上面的接口一致，需要是单例模式，看了一下强转的实现，实际实现是<strong>Derby数据库</strong>的逻辑</p>
+<p>也就是从代码走读的角度来看，利用条件并不是网传的那两个利用条件，至少应该包括是单例且使用Derby数据库。利用版本也应该不止最新版本，毕竟这块代码也已经许久没有动过了</p>
+<p>总结来说，从代码走读的角度来看，利用条件应为：</p>
+<ol>
+<li>Nacos 2020年起的某个版本</li>
+<li>未开启Nacos鉴权</li>
+<li><strong>单例模式且使用Derby数据库</strong></li>
+</ol>
+<p>很多网文强调POC利用可复现，我看了一下大家基本上都是用的最新版本的Nacos并直接使用<code>-m standalone </code>的命令启动的Nacos，实际上他们在验证时都忽略了一点，这个POC只在单例模式下的Nacos有效。</p>
+<p>而生产环境上部署的Nacos，考虑到高可用，往往都会是使用集群模式，且外置存储。因此理论上，这个POC是无法在这种场景下利用的。</p>
+<h1 id="By-the-way"><a href="#By-the-way" class="headerlink" title="By the way"></a>By the way</h1><p>花了点心思研究了一下以后，感觉这些标题党们可太坏了，没有做很好的风险分析，就开始大张旗鼓的宣传紧急，重要的字样，引起大家的焦虑和恐慌。</p>
+<p>实际研究下来发现是Derby的场景后，我就回想起社区关于Derby的讨论实际上不少，便翻了翻，找到了不少有趣的信息</p>
+<p>首先是发表于2020年12月的这篇Issue，<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/issues/4463">Report a security vulnerability in nacos to execute arbitrary SQL without authentication</a>，这篇Issue报告的漏洞的利用端点，就是本次POC的端点之一，<code>/nacos/v1/cs/ops/derby</code>。但当时这个端点是没有鉴权逻辑的，因此可以利用这个端点直接进行Derby的操作。</p>
+<p>关于为什么有这个端点，<a target="_blank" rel="noopener" href="https://github.com/KomachiSion">@KomachiSion</a>实际上也做了解释</p>
+<style>.nbclukovcfsi{width: 750px;}</style><img src="/2024/07/15/4d9d066a596b/image-20240715223421855.png" class="nbclukovcfsi" alt="image-20240715223421855">
+
+<p>另一个Issue是<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/issues/4463">Nacos 存在 SQL 注入漏洞 #10613</a>，报告者同样报告的是<code>/nacos/v1/cs/ops/derby</code>的端点，但这个Issue被标记为Invalid，<a target="_blank" rel="noopener" href="https://github.com/KomachiSion">@KomachiSion</a>也做了回应</p>
+<style>.zbpjscfvjotw{width: 750px;}</style><img src="/2024/07/15/4d9d066a596b/image-20240715223724960.png" class="zbpjscfvjotw" alt="image-20240715223724960">
+
+<p>回过头来看这个POC，实际这个POC同样也是利用了Nacos的这个功能，对Derby数据库进行管理，而Derby数据库可以执行系统命令，从而产生了RCE。</p>
+<p>所以，这个0day社区会收录吗，参考之前的Issue，我觉得不好说..</p>
+<p>是特性还是bug？还是得等官方的小伙伴来答疑</p>
+<p>让子弹再飞一会儿~</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/js/pangu.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // listen to any DOM change and automatically perform spacing via MutationObserver()
+    pangu.autoSpacingPage();
+  });
+</script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+  data-repo="xyohn/xyohn-giscus"
+  data-repo-id="R_kgDOJz28ng"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOJz28ns4CXdLX"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+
+
+</html>
