@@ -730,6 +730,9 @@ body {
 .post-content p img {
   width: 80%;
 }
+.post-content img {
+  width: 100%;
+}
 .post-content ul,
 .post-content ol {
   padding-left: 2em;
