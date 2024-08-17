@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="~">
+    <meta property="og:type" content="website">
+    <meta name="description" content="~">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        DataBufferLimitException - xYohn
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    
+  
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PV8HBR2ZFH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-PV8HBR2ZFH')
+    </script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+    <script type="text/javascript">
+      var _hmt = _hmt || []
+      ;(function () {
+        var hm = document.createElement('script')
+        hm.src = 'https://hm.baidu.com/hm.js?4f76dd4546c9af8c7658d757473088ed'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(hm, s)
+      })()
+    </script>
+  
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>xYohn</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%AE%9A%E4%BD%8D"><span class="toc-text">异常定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9F"><span class="toc-text">怎么改？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A2%8E%E7%A2%8E%E5%BF%B5"><span class="toc-text">碎碎念</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        DataBufferLimitException
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2024-08-17 12:08:53</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前两天接到用户反馈，某个业务的列表出不来了。这个业务的链路上是前端调用我们的服务，我们再调用第三方的服务，并对结果进行包装后返回。</p>
+<p>查看了一下相应请求的日志，发现错误的来源是<code>DataBufferLimitException</code></p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240801203537606.png" class="" title="image-20240801203537606">
+
+<p>从直觉上感觉是返回的报文太大了，便让前端同事尝试把分页的列表数量调小点，调整后接口返回正常。</p>
+<p>不过，用过蛮多的Http请求工具，确实还没遇到过因为返回报文过大而报错的问题，便看了看这次的代码，准备研究一番。</p>
+<h2 id="异常定位"><a href="#异常定位" class="headerlink" title="异常定位"></a>异常定位</h2><p>查看了一下本次出问题的接口使用的Http请求工具，是用的<code>Spring WebFlux</code>封装的<code>WebClient</code>，代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Mono&lt;String&gt; resp = WebClient.create().post()</span><br><span class="line">                .uri(url)</span><br><span class="line">                .contentType(MediaType.APPLICATION_JSON_UTF8)</span><br><span class="line">                .body(BodyInserters.fromObject(body))</span><br><span class="line">                .retrieve().bodyToMono(String.class);</span><br></pre></td></tr></table></figure>
+
+<p>乍一看是默认配置，难道默认配置的大小就只有262144？这个值是从哪儿来的呢？</p>
+<p>通过堆栈，可以定位到这个错误是从<code>org.springframework.core.io.buffer.LimitedDataBufferList#raiseLimitException</code>中产生。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">raiseLimitException</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="comment">// Do not release here, it&#x27;s likely down via doOnDiscard..</span></span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">DataBufferLimitException</span>(</span><br><span class="line">			<span class="string">&quot;Exceeded limit on max bytes to buffer : &quot;</span> + <span class="built_in">this</span>.maxByteCount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>maxByteCount</code>是<code>LimitedDataBufferList</code>的属性，值声明为<code>final</code>类型，因此他一定是初始化的时候产生的，查看其构造方法，值由外部传入。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LimitedDataBufferList</span> <span class="keyword">extends</span> <span class="title class_">ArrayList</span>&lt;DataBuffer&gt; &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> maxByteCount;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> byteCount;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">LimitedDataBufferList</span><span class="params">(<span class="type">int</span> maxByteCount)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.maxByteCount = maxByteCount;</span><br><span class="line">	&#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看构造方法的调用方，一共有两处，一个是从<code>org.springframework.core.codec.StringDecoder#decode(org.reactivestreams.Publisher&lt;org.springframework.core.io.buffer.DataBuffer&gt;, org.springframework.core.ResolvableType, org.springframework.util.MimeType, java.util.Map&lt;java.lang.String,java.lang.Object&gt;)</code>中构建，一个是从<code>org.springframework.core.io.buffer.DataBufferUtils#join(org.reactivestreams.Publisher&lt;? extends org.springframework.core.io.buffer.DataBuffer&gt;, int)</code>中构建</p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240816170438761.png" class="" title="image-20240816170438761">
+
+<ul>
+<li><p>StringDecoder#decode</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> Flux&lt;String&gt; <span class="title function_">decode</span><span class="params">(Publisher&lt;DataBuffer&gt; input, ResolvableType elementType,</span></span><br><span class="line"><span class="params">			<span class="meta">@Nullable</span> MimeType mimeType, <span class="meta">@Nullable</span> Map&lt;String, Object&gt; hints)</span> &#123;</span><br><span class="line"></span><br><span class="line">		<span class="type">byte</span>[][] delimiterBytes = getDelimiterBytes(mimeType);</span><br><span class="line"></span><br><span class="line">		<span class="type">LimitedDataBufferList</span> <span class="variable">chunks</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LimitedDataBufferList</span>(getMaxInMemorySize());</span><br><span class="line">		DataBufferUtils.<span class="type">Matcher</span> <span class="variable">matcher</span> <span class="operator">=</span> DataBufferUtils.matcher(delimiterBytes);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> Flux.from(input)</span><br><span class="line">				.concatMapIterable(buffer -&gt; processDataBuffer(buffer, matcher, chunks))</span><br><span class="line">				.concatWith(Mono.defer(() -&gt; &#123;</span><br><span class="line">					<span class="keyword">if</span> (chunks.isEmpty()) &#123;</span><br><span class="line">						<span class="keyword">return</span> Mono.empty();</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="type">DataBuffer</span> <span class="variable">lastBuffer</span> <span class="operator">=</span> chunks.get(<span class="number">0</span>).factory().join(chunks);</span><br><span class="line">					chunks.clear();</span><br><span class="line">					<span class="keyword">return</span> Mono.just(lastBuffer);</span><br><span class="line">				&#125;))</span><br><span class="line">				.doOnTerminate(chunks::releaseAndClear)</span><br><span class="line">				.doOnDiscard(PooledDataBuffer.class, PooledDataBuffer::release)</span><br><span class="line">				.map(buffer -&gt; decode(buffer, elementType, mimeType, hints));</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的代码比较简单，主要关注getMaxInMemorySize()的方法，这个方法是其父类<code>org.springframework.core.codec.AbstractDataBufferDecoder</code>提供的，获取的是<code>maxInMemorySize</code>属性的值，这个值初始化为256*1024，即262144</p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240816170759876.png" class="" title="image-20240816170759876">
+</li>
+<li><p>DataBufferUtils#join</p>
+<p>这个方法的代码比较复杂，主要关注<code>maxByateCount</code>是从调用者传参进来的，继续跟踪</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Mono&lt;DataBuffer&gt; <span class="title function_">join</span><span class="params">(Publisher&lt;? extends DataBuffer&gt; buffers, <span class="type">int</span> maxByteCount)</span> &#123;</span><br><span class="line">	Assert.notNull(buffers, <span class="string">&quot;&#x27;dataBuffers&#x27; must not be null&quot;</span>);</span><br><span class="line">  </span><br><span class="line">	<span class="keyword">if</span> (buffers <span class="keyword">instanceof</span> Mono) &#123;</span><br><span class="line">		<span class="keyword">return</span> (Mono&lt;DataBuffer&gt;) buffers;</span><br><span class="line">	&#125;</span><br><span class="line">  </span><br><span class="line">	<span class="keyword">return</span> Flux.from(buffers)</span><br><span class="line">			.collect(() -&gt; <span class="keyword">new</span> <span class="title class_">LimitedDataBufferList</span>(maxByteCount), LimitedDataBufferList::add)</span><br><span class="line">			.filter(list -&gt; !list.isEmpty())</span><br><span class="line">			.map(list -&gt; list.get(<span class="number">0</span>).factory().join(list))</span><br><span class="line">			.doOnDiscard(PooledDataBuffer.class, DataBufferUtils::release);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2024/08/17/9e42af9c15e6/image-20240816171029405.png" class="" title="image-20240816171029405">
+
+<p><code>AbstractDataBufferDecoder</code>是刚才<code>StringDecoder</code>的父类，因此大小跟追踪<code>StringDecoder</code>的情况一致，其余的调用方均传输了类定义的属性<code>maxInMemorySize</code>，大小均为256*1024</p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240816171359496.png" class="" title="image-20240816171359496"></li>
+</ul>
+<p>由此可确认，默认值就是256*1024，即262144</p>
+<h2 id="怎么改？"><a href="#怎么改？" class="headerlink" title="怎么改？"></a>怎么改？</h2><p>定位到了数据的来源，就比较好完成修改了。查看这些<code>maxInMemorySize</code>属性，基本上都配有<code>setMaxInMemorySize</code>的方法，追踪这个方法，均可以到达<code>org.springframework.http.codec.support.BaseDefaultCodecs#initCodec</code>的方法。</p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240816172245981.png" class="" title="image-20240816172245981">
+
+<p>可以看到，当<code>org.springframework.http.codec.support.BaseDefaultCodecs#maxInMemorySize</code>不为null时，codec无论是什么类型，都能完成<code>setMaxMessageSize</code>的操作。因此接下来查看如何修改<code>BaseDefaultCodecs#maxInMemorySize</code>。</p>
+<p>除去对象复制类，<code>BaseDefaultCodecs#maxInMemorySize</code>值的修改只能通过<code>org.springframework.http.codec.support.BaseDefaultCodecs#maxInMemorySize(int)</code>完成。查看这个方法的注释</p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240816172839898.png" class="" title="image-20240816172839898">
+
+<p>默认值是256k，如果不限制的话是-1。跟我们刚才追踪代码的结果一致，但怎么修改，没有明确的注释。</p>
+<p>查看<code>org.springframework.http.codec.CodecConfigurer.DefaultCodecs#maxInMemorySize</code>的引用，也没有找到合适的调用方。因此猜测，这里就是顶层的入口，如果需要修改，我们需要调用这个方法。</p>
+<p>但怎么调用呢，查看&#96;&#96;org.springframework.http.codec.CodecConfigurer&#96;的注释</p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240816192035668.png" class="" title="image-20240816192035668">
+
+<p>注释里说，创建一个实例，可以通过<code>ClientCodecConfigurer. create()</code>或者 <code>ServerCodecConfigurer.create()</code>方法，我们是客户端方，从命名上看，应该是<code>ClientCodecConfigurer.create()</code>。</p>
+<p>查看这个方法的引用关系，发现只有一个入口（其余都是注释），来自<code>org.springframework.web.reactive.function.client.DefaultExchangeStrategiesBuilder</code>的构造方法。</p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240816192150124.png" class="" title="image-20240816192150124">
+
+<p>再查看这个构造方法的引用，可以看到有个<code>DEFAULT_EXCHANGE_STRATEGIES</code>的静态变量，看看这个静态变量的引用关系，定位到<code>org.springframework.web.reactive.function.client.ExchangeStrategies#withDefaults</code></p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240816192700654.png" class="" title="image-20240816192700654">
+
+<p>再查看这个方法的引用，可以看到一个Builder结尾的类<code>org.springframework.web.reactive.function.client.DefaultWebClientBuilder</code>，方法<code>initExchangeStrategies()</code></p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240816192730165.png" class="" title="image-20240816192730165">
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> ExchangeStrategies <span class="title function_">initExchangeStrategies</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (CollectionUtils.isEmpty(<span class="built_in">this</span>.strategiesConfigurers)) &#123;</span><br><span class="line">		<span class="keyword">return</span> (<span class="built_in">this</span>.strategies != <span class="literal">null</span> ? <span class="built_in">this</span>.strategies : ExchangeStrategies.withDefaults());</span><br><span class="line">	&#125;</span><br><span class="line">	ExchangeStrategies.<span class="type">Builder</span> <span class="variable">builder</span> <span class="operator">=</span></span><br><span class="line">			(<span class="built_in">this</span>.strategies != <span class="literal">null</span> ? <span class="built_in">this</span>.strategies.mutate() : ExchangeStrategies.builder());</span><br><span class="line">	<span class="built_in">this</span>.strategiesConfigurers.forEach(configurer -&gt; configurer.accept(builder));</span><br><span class="line">	<span class="keyword">return</span> builder.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的逻辑跟<code>DefaultWebClientBuilder</code>中<code>strategies</code>和<code>strategiesConfigurers</code>属性相关，查看这两个变量的引用方法及其注释</p>
+<img src="/2024/08/17/9e42af9c15e6/image-20240816193516462.png" class="" title="image-20240816193516462">
+
+<img src="/2024/08/17/9e42af9c15e6/image-20240816193528125.png" class="" title="image-20240816193528125">
+
+<p>可以推断出，<code>org.springframework.web.reactive.function.client.WebClient.Builder#codecs</code>是更推荐的设置方法，当然<code>org.springframework.web.reactive.function.client.WebClient.Builder#exchangeStrategies()</code>也是可选择的。</p>
+<p>总结刚才的代码定位，也就是如果我们需要修改<code>maxInMemorySize</code>的大小，可以通过<code>WebClient</code>构造时调用<code>codecs</code>方法实现，即</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Mono&lt;String&gt; resp = WebClient.builder().codecs(codecs-&gt;codecs.defaultCodecs().maxInMemorySize(-<span class="number">1</span>)).build().post()</span><br><span class="line">                .uri(url)</span><br><span class="line">                .contentType(MediaType.APPLICATION_JSON_UTF8)</span><br><span class="line">                .body(BodyInserters.fromObject(body))</span><br><span class="line">                .retrieve().bodyToMono(String.class);</span><br></pre></td></tr></table></figure>
+
+<h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2><p>解决这个问题需要这么复杂吗，其实并不用。打开搜索引擎，输入<code>DataBufferLimitException</code>，随手翻翻就能找到解决方法，例如Baeldung的<a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-webflux-databufferlimitexception">How to Resolve Spring Webflux DataBufferLimitException</a>，基本上从是什么为什么怎么办都做了详细的解释。如果你用上了大模型的代码助手，只要点点报错的堆栈，大模型也会告诉你怎么办。</p>
+<p>实际上，并不需要花时间去翻代码，善于利用工具，1分钟不到就解决完事儿了。</p>
+<p>这是好事，也是坏事。</p>
+<p>当下的我们在快节奏的生活下，总是在追求怎么办，而忽略了是什么和为什么。这会导致问题没有被根本性的解决——都不知道问题从哪儿来，怎么能根治问题呢？</p>
+<p>我身边不少项目充斥着从搜索引擎复制粘贴过来的代码，细问他们为啥会拷这份代码，他们表达的观点大体都是： 遇到了一个问题，不知道怎么解决，然后搜索引擎一查说可以这么做，就拷过来了，发现诶好像确实能解决。但至于为什么这样可以解决，他们并不知道。</p>
+<p>而这份代码存在的问题，埋下的大雷，他们更不知道。</p>
+<p>当这个大雷爆发时，他们再去求助搜索引擎，发现找不到他们需要的答案时，便陷入了僵局。</p>
+<p>程序员能力的高低，分水岭在我看来就是是否有独立思考和独立解决问题的能力。如果遇到需求遇到问题<strong>只能</strong>借助搜索引擎来得到答案，那是得不到成长的。搜索引擎得到的结果也都是其他程序员总结的，但案例确是不尽相同的。当有一天搜索引擎得到的案例方案跟实际遇到的有所出入，当有一天遇到了一个别人都没有遇到过的问题，难道我们只能束手无策吗？</p>
+<p>我很喜欢的一句话是</p>
+<blockquote>
+<p>源码之下无秘密</p>
+</blockquote>
+<p>当我们对一个东西十分了解之后，当我们能知道是什么之后，对于它可能出现的问题，对于产生的为什么，也就不会那么束手无策了。</p>
+<hr>
+<p>AI这几年兴起后，我对象曾问我：”你们程序员会被AI取代掉吗？”</p>
+<p>实话说，我曾经为这个问题陷入思考，隐隐觉得自己马上就是个失业人口。</p>
+<p>后来接触了一些生成式AI的产品，以及厂商们推出的代码助手后，我有了一些不一样的想法。</p>
+<p>这些助手们，在当下的能力，还是只能做一个助手——你可以告诉他问题，也可以让他帮忙解释和修正，但你让他完完整整的对一个业务问题从设计到编码再到测试形成一个完整的方案，他还做不到。</p>
+<p>对于一些简单的问题进行编码，这些助手还是绰绰有余的。但他们的思考，也好像是停留在面向过程的方式思考。让他用面对对象的编码思路去思考问题，去定义接口和抽象类，去运用模板模式做逻辑拆分，他们就开始有点吃力了。</p>
+<p>忘了是谁跟我提过一句说要把当下的大模型当做实习生去对待，我觉得这句话很在理。你可以告诉他你需要什么得怎么做，也可以让他去做汇总做报告，他都能圆满的完成。但如果你让他自己去从头到尾操心一个事情，，站在更高的角度去思考一些问题，大模型就无法完全胜任了。</p>
+<p>曾经跟一个AI厂商的售前交流，他说他们公司的人基本上把它们的产品当做搜索引擎用了，有什么问题通过自然语言进行询问，大模型联网总结结果，不用再通过人工去对结果进行筛选了。</p>
+<p>想到十几年前搜索东西还得按搜索引擎的思考方式给到关键词，想到刚提到的面向搜索引擎编程，我觉得大模型真的不是昙花一现，他是技术进步到一定阶段的成果。但让他一蹴而就完成对一个职业的取代，在我看来是比较困难的。</p>
+<p>不过，趋势来看，是有可能的，只是他会从最简单最底层最重复的工作开始。例如，面向搜索引擎编程的我们。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/js/pangu.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // listen to any DOM change and automatically perform spacing via MutationObserver()
+    pangu.autoSpacingPage();
+  });
+</script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+  data-repo="xyohn/xyohn-giscus"
+  data-repo-id="R_kgDOJz28ng"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOJz28ns4CXdLX"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+
+
+</html>
