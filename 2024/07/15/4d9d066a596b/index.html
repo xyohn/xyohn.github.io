@@ -205,7 +205,7 @@
 <p>毕竟Nacos也是开源的，我们看看这两个接口都有些神马逻辑</p>
 <ul>
 <li><p>&#x2F;nacos&#x2F;v1&#x2F;cs&#x2F;ops&#x2F;data&#x2F;removal</p>
-<style>.eqieawjmhesc{}</style><img src="/2024/07/15/4d9d066a596b/image-20240715220513249.png" class="eqieawjmhesc" alt="image-20240715220513249"></li>
+<style>.qkhiaaxymylq{}</style><img src="/2024/07/15/4d9d066a596b/image-20240715220513249.png" class="qkhiaaxymylq" alt="image-20240715220513249"></li>
 </ul>
 <p>​		我看了一下这个接口的改动记录，实际上从2020年开始，这个接口就存在了，且逻辑与现在没有太大差异。</p>
 <p>​		从实现逻辑及注释上来看，是希望能上传一个文件并导入到持久层上，并且这个接口开启了鉴权。</p>
@@ -216,7 +216,7 @@
 <p>​	换言之，这个接口只有在<strong>单例模式</strong>下才能调用，集群模式应该被这个判断条件拦截了</p>
 <ul>
 <li><p>&#x2F;nacos&#x2F;v1&#x2F;cs&#x2F;ops&#x2F;derby</p>
-<style>.yrsxdrcshbjb{}</style><img src="/2024/07/15/4d9d066a596b/image-20240715221513846.png" class="yrsxdrcshbjb" alt="image-20240715221513846"></li>
+<style>.igkbqjodsmqr{}</style><img src="/2024/07/15/4d9d066a596b/image-20240715221513846.png" class="igkbqjodsmqr" alt="image-20240715221513846"></li>
 </ul>
 <p>​		这个接口的首版同样是在2020年，近几年同样没什么变动。吸引我的也同样是这个判断条件，以及后面一句强转</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!DatasourceConfiguration.isEmbeddedStorage()) &#123;</span><br><span class="line">               <span class="keyword">return</span> RestResultUtils.failed(<span class="string">&quot;The current storage mode is not Derby&quot;</span>);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="type">LocalDataSourceServiceImpl</span> <span class="variable">dataSourceService</span> <span class="operator">=</span> (LocalDataSourceServiceImpl) DynamicDataSource</span><br><span class="line">                   .getInstance().getDataSource();</span><br></pre></td></tr></table></figure>
@@ -235,10 +235,10 @@
 <p>实际研究下来发现是Derby的场景后，我就回想起社区关于Derby的讨论实际上不少，便翻了翻，找到了不少有趣的信息</p>
 <p>首先是发表于2020年12月的这篇Issue，<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/issues/4463">Report a security vulnerability in nacos to execute arbitrary SQL without authentication</a>，这篇Issue报告的漏洞的利用端点，就是本次POC的端点之一，<code>/nacos/v1/cs/ops/derby</code>。但当时这个端点是没有鉴权逻辑的，因此可以利用这个端点直接进行Derby的操作。</p>
 <p>关于为什么有这个端点，<a target="_blank" rel="noopener" href="https://github.com/KomachiSion">@KomachiSion</a>实际上也做了解释</p>
-<style>.luxqfddljjpc{}</style><img src="/2024/07/15/4d9d066a596b/image-20240715223421855.png" class="luxqfddljjpc" alt="image-20240715223421855">
+<style>.bhihnpnkghdb{}</style><img src="/2024/07/15/4d9d066a596b/image-20240715223421855.png" class="bhihnpnkghdb" alt="image-20240715223421855">
 
 <p>另一个Issue是<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/issues/4463">Nacos 存在 SQL 注入漏洞 #10613</a>，报告者同样报告的是<code>/nacos/v1/cs/ops/derby</code>的端点，但这个Issue被标记为Invalid，<a target="_blank" rel="noopener" href="https://github.com/KomachiSion">@KomachiSion</a>也做了回应</p>
-<style>.jcjfodbbztsl{}</style><img src="/2024/07/15/4d9d066a596b/image-20240715223724960.png" class="jcjfodbbztsl" alt="image-20240715223724960">
+<style>.lwxrxllwsjlv{}</style><img src="/2024/07/15/4d9d066a596b/image-20240715223724960.png" class="lwxrxllwsjlv" alt="image-20240715223724960">
 
 <p>回过头来看这个POC，实际这个POC同样也是利用了Nacos的这个功能，对Derby数据库进行管理，而Derby数据库可以执行系统命令，从而产生了RCE。</p>
 <p>所以，这个0day社区会收录吗，参考之前的Issue，我觉得不好说..</p>
