@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="~">
+    <meta property="og:type" content="website">
+    <meta name="description" content="~">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Using Spring properties in ShardingSphere-JDBC 5.3+ - xYohn
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    
+  
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PV8HBR2ZFH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-PV8HBR2ZFH')
+    </script>
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+    <script type="text/javascript">
+      var _hmt = _hmt || []
+      ;(function () {
+        var hm = document.createElement('script')
+        hm.src = 'https://hm.baidu.com/hm.js?4f76dd4546c9af8c7658d757473088ed'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(hm, s)
+      })()
+    </script>
+  
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.png" />
+        </div>
+        <div class="name">
+            <i>xYohn</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="toc-text">实现思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-text">实现方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A2%8E%E7%A2%8E%E5%BF%B5"><span class="toc-text">碎碎念</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Using Spring properties in ShardingSphere-JDBC 5.3+
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2024-09-28 11:53:19</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#ShardingSphere" title="ShardingSphere">ShardingSphere</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>ShardingSphere-JDBC 5.3版本开始有一个<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/wb5fgYzI8k5UQ_-NodpjVA">大变动</a>，不再像以往一样提供<code>ShardingSphere Spring Boot Starter </code>的起步依赖，而是推荐使用者通过<code>ShardingSphereDriver</code>来完成接入。</p>
+<p>这使得 ShardingSphere-JDBC 更加的轻盈化，不再需要考虑兼容 Spring 或是 SpringBoot ，让开发者更关注功能的核心，而不是对生态的支持。</p>
+<p>但这也有带来一些不好的点，例如以往可以使用${}作为占位符引用其它变量，在新版本中由于不依赖 Spring 环境，这类变量不受 Spring 管理，就不生效了。</p>
+<p>看了下官方文档，新版本的变量仅支持系统变量或者是环境变量，而我们的配置大部分都维护在 SpringBoot 的配置文件中（或者是依赖的配置中心上）</p>
+<p>大致翻了翻 ShardingSphere-JDBC 的源码，发现还是提供了不少的 SPI，可以做这块功能的扩展。于是乎，自己动手实现一个。</p>
+<h1 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h1><p>翻了翻<code>ShardingSphereDriver</code>的实现，核心逻辑<code>org.apache.shardingsphere.driver.ShardingSphereDriver#connect</code>中调用了<code>org.apache.shardingsphere.driver.jdbc.core.driver.DriverDataSourceCache#get</code>方法，这个方法里的核心逻辑调用了<code>org.apache.shardingsphere.driver.jdbc.core.driver.DriverDataSourceCache#createDataSource</code>的逻辑。对配置的读取以及数据库的初始化，就是从这儿开始的</p>
+<img src="/2024/09/28/683fc3516b14/image-20240926191058076.png" class="" title="image-20240926191058076">
+
+<p>其中<code>ShardingSphereURLLoadEngine</code>用于解析 url 地址并读取配置，而<code> YamlShardingSphereDataSourceFactory.createDataSource</code>用于根据配置生成数据库对象。我们需要处理配置，所以关心的是<code>ShardingSphereURLLoadEngine</code>的实例化以及其<code>loadContent</code>的方法。</p>
+<ul>
+<li><p><code>loadContent</code></p>
+<img src="/2024/09/28/683fc3516b14/image-20240926191648496.png" class="" title="image-20240926191648496">这个方法很简单，其实只有两行，一个是通过`ShardingSphereURLLoader`的实现读取配置文件数据，一个是调用`org.apache.shardingsphere.infra.url.core.arg.URLArgumentLineRender#render`对配置文件数据做变量替换，其中`org.apache.shardingsphere.infra.url.core.arg.URLArgumentPlaceholderType`是一个枚举类，里面有三个类型，分别代表无，环境变量，系统变量
+
+<img src="/2024/09/28/683fc3516b14/image-20240926192506707.png" class="" title="image-20240926192506707">
+
+<p>看起来后一个比较满足我们的需要，但可惜<code>org.apache.shardingsphere.infra.url.core.arg.URLArgumentLineRender#render</code>的方法里，调用的替换逻辑<code>org.apache.shardingsphere.infra.url.core.arg.URLArgumentLine#replaceArgument</code>写死了两种类型，也没有提供可供扩展的 SPI。</p>
+<img src="/2024/09/28/683fc3516b14/image-20240926192759458.png" class="" title="image-20240926192759458">
+
+
+
+<p>看来这条路行不通，除非是改源码自己实现。</p>
+</li>
+<li><p><code>ShardingSphereURLLoadEngine</code>的实例化. </p>
+<img src="/2024/09/28/683fc3516b14/image-20240926193411577.png" class="" title="image-20240926193411577">
+
+<p><code>ShardingSphereURLLoadEngine</code>的实例化使用了 SPI 机制，根据 url的<code>sourceType</code>来决定实例化的<code>ShardingSphereURLLoader</code>对象。结合刚才<code>loadContent</code>的分析，我们可以自实现一个<code>ShardingSphereURLLoader</code>的逻辑，在其 <code>load</code>方法中，提前将 Spring 管理的变量进行替换。</p>
+</li>
+</ul>
+<p>因此，实现思路上，我们可以通过ShardingSphere-JDBC 的 SPI 机制，自定义一个<code>ShardingSphereURLLoader</code>的实现类，在里面将 Spring 管理的变量进行替换，来达到这个效果。</p>
+<p>那对于自定义的<code>ShardingSphereURLLoader</code>的实现类，我们怎么能读取到Spring的上下文，来实现替换呢？</p>
+<p>我们先看看 Spring 自己是怎么实现的。</p>
+<p>在Spring Context中，有一个<code>org.springframework.boot.context.properties.bind.PlaceholdersResolver</code>的接口，用于定义如何将带有占位符的值转换为实际业务值，其中有一个实现是<code>org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver</code>，就是用于解析占位符并填充值的核心逻辑。</p>
+<p>因此，我们需要在自定义的<code>ShardingSphereURLLoader</code>的实现类中，组合一个<code>PropertySourcesPlaceholdersResolver</code>对象，来实现我们的需求。</p>
+<p>怎么得到<code>PropertySourcesPlaceholdersResolver</code>对象呢，看了看实例化方法，最简单的方式是能传入 Spring Context 的 Environment。</p>
+<img src="/2024/09/28/683fc3516b14/image-20240927104852647.png" class="" title="image-20240927104852647">
+
+<p>接下来，需要找找怎么得到<code>org.springframework.core.env.Environment</code>。</p>
+<p>在 SpringBoot 启动的过程中，会有<code>org.springframework.core.env.Environment</code>的实例化过程，在实例化且配置后，SpringBoot 提供了一个 listener 的回调，用于通知关心 SpringBoot 启动阶段的实例，具体逻辑在<code>org.springframework.boot.SpringApplication#prepareEnvironment</code>。</p>
+<img src="/2024/09/28/683fc3516b14/image-20240927105234530.png" class="" title="image-20240927105234530">
+
+<p>所以我们可以基于这个回调，拿到<code>Environment</code>。</p>
+<p>那怎么样可以自定义这个回调呢？在<code>org.springframework.boot.SpringApplication#getRunListeners</code>中可以看到，listener是通过Spring的SPI得到的。</p>
+<img src="/2024/09/28/683fc3516b14/image-20240927114551277.png" class="" title="image-20240927114551277">
+
+<p>因此，我们需要通过Spring的SPI，实例化一个<code>org.springframework.boot.SpringApplicationRunListener</code>的对象，从而接收SpringBoot启动时的回调，得到<code>Environment</code>，继而一步步完成<code>ShardingSphereURLLoader</code>的实例化。</p>
+<p>当然，我们也可以通过其他方式获得<code>Environment</code>，例如Spring Context提供的<code>org.springframework.context.EnvironmentAware</code>接口，但这么做需要保证加载的顺序性。因为数据库连接池的创建需要依赖<code>ShardingSphereDriver</code>的实例化，<code>ShardingSphereDriver</code>的实例化需要依赖<code>ShardingSphereURLLoadEngine</code>的实例化。而我们此次的改动，会让<code>ShardingSphereURLLoadEngine</code>的实例化采用我们自定义<code>ShardingSphereURLLoader</code>的实例，但这个实例需要依赖<code>Environment</code>实例化。因此，需要保证我们自定义的类，其实例化时可以拿到<code>Environment</code>。也就是需要在数据库(<code>Datesource</code>)实例化时，<code>ShardingSphereURLLoader</code>已经准备完成。</p>
+<h1 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h1><p>总结一下刚才的思路分析，总体实现方式为：</p>
+<ul>
+<li>通过 Spring 的 SPI，实例化<code>SpringApplicationRunListener</code>的对象得到<code>Environment</code>。</li>
+<li>通过<code>Environment</code>，实例化<code>PropertySourcesPlaceholdersResolver</code>，提供给自定义的<code>ShardingSphereURLLoader</code>使用</li>
+<li>通过 ShardingSphere 的 SPI，实例化我们自定义的<code>ShardingSphereURLLoader</code>，在逻辑中通过<code>PropertySourcesPlaceholdersResolver</code>进行变量替换，从而实现该功能。</li>
+</ul>
+<p>可以把两部分逻辑做合并，得到以下类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义SpringPathUrLLoader实现类，用于在ShardingSphere中加载Spring配置文件中的数据源信息</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xYohn</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2024/9/25</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringPathUrLLoader</span> <span class="keyword">implements</span> <span class="title class_">ShardingSphereURLLoader</span>, SpringApplicationRunListener &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> PlaceholdersResolver propertySourcesPlaceholdersResolver;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SpringPathUrLLoader</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SpringPathUrLLoader</span><span class="params">(SpringApplication application, String[] args)</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@SneakyThrows(IOException.class)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">load</span><span class="params">(String configurationSubject, Properties queryProps)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> Thread.currentThread().getContextClassLoader()</span><br><span class="line">                .getResourceAsStream(configurationSubject)) &#123;</span><br><span class="line">            Objects.requireNonNull(inputStream);</span><br><span class="line">            <span class="keyword">try</span> (<span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(inputStream, StandardCharsets.UTF_8))) &#123;</span><br><span class="line">                <span class="keyword">return</span> reader.lines().map(e -&gt; propertySourcesPlaceholdersResolver.resolvePlaceholders(e))</span><br><span class="line">                        .map(Object::toString).collect(Collectors.joining(System.lineSeparator()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getType</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;springPath:&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">environmentPrepared</span><span class="params">(ConfigurableBootstrapContext bootstrapContext, ConfigurableEnvironment environment)</span> &#123;</span><br><span class="line">        SpringPathUrLLoader.setEnvironment(environment);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setEnvironment</span><span class="params">(Environment environment)</span> &#123;</span><br><span class="line">        propertySourcesPlaceholdersResolver = <span class="keyword">new</span> <span class="title class_">PropertySourcesPlaceholdersResolver</span>(environment);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有一个注意点，&#96;&#96;ShardingSphereURLLoader <code>的实例化是无参的，而</code>SpringApplicationRunListener<code>需要</code>org.springframework.boot.SpringApplication<code>和 </code>args&#96;，所以需要准备两个构造方法给 SPI 使用。</p>
+<p>接着我们在实现 SPI 的登记</p>
+<ul>
+<li><p>关于 Spring 的，可以使用META-INF&#x2F;spring.factories 的形式，或是新版本中使用 Java SPI 标准的方式</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">org.springframework.boot.SpringApplicationRunListener</span>=<span class="string">io.github.xyohn.shardingsphereloader.SpringPathUrLLoader</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关于 ShardingSphere 的，定义在META-INF&#x2F;services&#x2F;org.apache.shardingsphere.infra.url.spi.ShardingSphereURLLoader</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io.github.xyohn.shardingsphereloader.SpringPathUrLLoader</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>然后在配置文件中，对于数据库地址的定义，使用<code>jdbc:shardingsphere:springPath:</code>的前缀做定义。</p>
+<p>完事儿。</p>
+<h1 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h1><p>发现 ShardingSphere 对自己的介绍现在是:</p>
+<blockquote>
+<p>Apache ShardingSphere 是一款分布式的数据库生态系统， 可以将任意数据库转换为分布式数据库，并通过数据分片、弹性伸缩、加密等能力对原有数据库进行增强。</p>
+</blockquote>
+<p>看到这个任意数据库转换为分布式数据库，感慨良多。</p>
+<p>曾经认识 ShardingSphere 是因为分库分表的需求，后来随着分布式数据库的逐步流行，也让我越发的觉得，这一类从应用层面产生的业务，确实应该下沉到数据库层，又或是中间多一层。</p>
+<p>因为他的原理，他的理念，是大差不差的，更大的区别主要还是应用层使用的时候，配置上的不同。</p>
+<p>把他作为一个中间件，又或是数据库的一部分，对应用透明，减少应用的复杂度，对应用的后期维护也更友好。</p>
+<p>但分布式数据库，好像还并没有能完全的走入每个项目。但项目中许多许多的问题，在我看来是分布式数据库都能解决的。</p>
+<p>因为他贵？又或者是，技术的发展和转型，需要时间一步步沉淀积累和转变。</p>
+<p>换回话说，像 ShardingSphereJDBC 这类应用层改造的组件，或是 ShardingSphereProxy&#x2F;Mycat 这类的中间层服务，随着分布式数据库的逐步普及，未来他们会逐步消失吗？</p>
+<p>不知道，又或者，到时候会有其他的业务场景产生。</p>
+<p>汽车行业这几年，技术的革新，政策的支持，新能源车的比例越来越高，人们开始逐步了解和接触新能源车，享受着新技术带来的红利。而传统燃油车，也越发开始出现颓态。</p>
+<p>在这个行业的变动里，许多企业算是踩准了时机，纷纷发力，在逐步实现弯道超车。</p>
+<p>传统燃油车的时代，海外的品牌更加驰名，技术底蕴也更加雄厚；而新能源车时代，国内的品牌逐个发力，试图颠覆行业。</p>
+<p>这又让我想到了现在的传统数据库和分布式数据库。传统数据库行业里，大家用来用去无不都是那些头部品牌的产品。但分布式数据库的赛道，还算做是新赛道，也有很多国内的品牌开始展露头角，甚至也打出了自己的一片天地。</p>
+<p>随着业务的发展，随着自主可控的要求，不知道在这个新赛道上，有没有能抓住这次变革的产品，成为冲出来的黑马。</p>
+<p>当然，骗补的那些，就还是算了吧。我还是坚信，良币会驱逐劣币的。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/js/pangu.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // listen to any DOM change and automatically perform spacing via MutationObserver()
+    pangu.autoSpacingPage();
+  });
+</script>
+
+
+
+
+    <script src="https://giscus.app/client.js"
+  data-repo="xyohn/xyohn-giscus"
+  data-repo-id="R_kgDOJz28ng"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOJz28ns4CXdLX"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+
+
+
+
+</html>
